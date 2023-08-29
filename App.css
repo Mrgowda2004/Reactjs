@@ -1,0 +1,56 @@
+@media (max-width: 768px) {
+  /* Styles for tablets and smaller screens */
+}
+
+@media (max-width: 480px) {
+  /* Styles for mobile phones */
+}
+
+    body {
+    font-family: Arial, sans-serif;
+    background-color:mistyrose;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color:#A8D0DA;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px rgba(96, 5, 5, 0.1);
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+  }
+  
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #4a9855;
+    border-radius: 4px;
+  }
+  
+  .button {
+    text-align: center;
+    color:red;
+    box-sizing: 20px;
+    padding: 20px 20px;
+    size: 20px;
+    box-shadow:inset;
+   
+
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  h1{
+    text-align: center;
+  }
+  

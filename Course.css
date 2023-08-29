@@ -1,0 +1,30 @@
+/* src/components/CourseSuggestions.css */
+.course-suggestions {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .course-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .course-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px;
+    max-width: 300px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .course-card h3 {
+    margin-top: 0;
+  }
+  
+  .course-card p {
+    margin-bottom: 5px;
+  }
+  
+  /* Add more styling as needed */
+  
