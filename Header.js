@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './Header.css'; // Make sure to have your CSS file in the same directory as this component
-
+import './Header.css';
+import { useNavigate } from 'react-router-dom';
+import { Paper } from '@mui/material';
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +28,7 @@ class Header extends Component {
 
   render() {
     return (
+      <Paper sx={{padding: '32px'}}>
       <div className="container">
         <h1>User Profile</h1>
         <form id="profileForm" onSubmit={this.handleSubmit}>
@@ -132,10 +134,11 @@ class Header extends Component {
           ></textarea>
 
           <div className="button">
-            <button type="submit">SUBMIT</button>
+            <button type="submit" >SUBMIT</button>
           </div>
         </form>
       </div>
+      </Paper>
     );
   }
 }
