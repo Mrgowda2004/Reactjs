@@ -4,62 +4,67 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography'
-import { Paper } from '@mui/material';
-import { styled } from '@mui/system';
+impoimport * as React from 'react';
+import Container from '@mui/material/Container';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Grid,Card,Paper} from '@mui/material';
+import Data from './Data.json';
+
 
 
 export default function Coursecard() {
+  const cardsPerRow = 4;
   return (
-    <Paper sx={{padding: '32px'}}>
-    <Card sx={{ maxWidth: 345 }}>
+   <Paper>
+    <Container maxWidth="lg">
+      <Typography variant='h4' align='center' style={{marginTop:"50px",fontSize:"30px",color:"blue"}}>
+      Course Suggestions:
+      </Typography>
+      <Grid
+  container
+  direction="row"
+  justifyContent="center"
+  alignItems="center"
+  Container spacing={{xs:2,md:3}}
+>
+        {Data.map((card) => (
+        <Grid item key={card.id} xs={12} sm={8} ms={4} lg={4} >
+    <Card sx={{maxWidth:345}} style={{ display:"inline-table", padding:"10px", marginBottom:"30px",marginTop:"30px"}}>
       <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
-        image="https://th.bing.com/th/id/OIP.QFFxI9pdItMf6DPUpFKoDgHaEK?w=278&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+        height="180"
+        image={card.img}
+        style={{borderRadius:"20px"}}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Machine Learning Fundamentals
+        {card.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        Learn the basics of machine learning algorithms and concepts.
+        {card.content}
         </Typography>
-        <Typography gutterBottom variant="h6" component="div">
-         online
+        <Typography gutterBottom variant="h6" component="div"sx={{color:'blue'}}>
+         {card.Mode}
         </Typography>
-        <Typography gutterBottom variant="h7" component="div">
-         Duration:6 weeks
+        <Typography gutterBottom variant="h7" component="div" sx={{color:'green'}}>
+        {card.duration}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Take course</Button>
+        <Button variant='contained' size='medium'>
+        Take course</Button>
       </CardActions>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="https://th.bing.com/th/id/OIP.mA_jHGJb_mjRmSZ7ErwMrwHaEj?w=279&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        Advanced Data Analysis
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        Master advanced techniques for data analysis and visualization.
-        </Typography>
-        <Typography gutterBottom variant="h6" component="div">
-         online
-        </Typography>
-        <Typography gutterBottom variant="h7" component="div">
-         Duration:8 weeks
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Take course</Button>
-      </CardActions>
-    </Card>
+      </Card>
+      </Grid>
+      ))}
+
+    </Grid>
+    </Container>
     </Paper>
   );
 }
