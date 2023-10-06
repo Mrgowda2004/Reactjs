@@ -3,38 +3,53 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost/Header', {
+app.use(cors(
+  {
+    origin: "http://localhost:3000",
+  }
+));
+
+// MongoDB connection
+mongoose.connect('mongodb+srv://mrgowdacr2018:Mrg%409066052004@cluster0.gqhsoos.mongodb.net/Data?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
+// Create a MongoDB schema and model (you'll need to define a schema based on your data structure)
+const userSchema = new mongoose.Schema({
+  fields: String,
+  academic: String,
+  career: String,
+  fieldsOfStudy: String,
+  skill: String,
+  specificInterest: String,
+});
+
+const User = mongoose.model('User', userSchema);
+
 app.use(bodyParser.json());
+app.use(cors());
 
-const feedbackSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  feedback: String,
+// Define API endpoints
+app.get("/", (req, res) => {
+  const formData = req.body;
+  const newUser = new User(formData);
+
+  newUser.save()
+    .then(() => {
+      res.json({ message: 'Data saved successfully' });
+    })
+    .catch((error) => {
+      console.error('Error while saving data:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    });
 });
 
-const Feedback = mongoose.model('Feedback', feedbackSchema);
-
-app.post('/api/feedback', (req, res) => {
-  const { name, email, feedback } = req.body;
-  const newFeedback = new Feedback({ name, email, feedback });
-  
-  newFeedback.save((err, savedFeedback) => {
-    if (err) {
-      console.error('Error saving feedback:', err);
-      return res.status(500).json({ error: 'Failed to save feedback' });
-    }
-    res.status(201).json(savedFeedback);
-  });
-});
-
+// Start the server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
