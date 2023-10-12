@@ -13,7 +13,6 @@ const Header = () => {
     skill: '',
     specificInterest: '',
   });
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -22,19 +21,27 @@ const Header = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Send the form data to the Node.js server
-    axios.post('/api/profile', formData)
-      .then(response => {
-        console.log('Data saved successfully:', response.data);
-        // You can also redirect the user to another page or perform other actions here
-      })
-      .catch(error => {
-        console.error('Error while saving data:', error);
-      });
+  
+    try {
+      // Send a POST request to your Express server
+      const response = await axios.post('/register', formData);
+  
+      if (response.status === 200) {
+        console.log('Data saved successfully:', response.data.message);
+        // You can also perform any other actions, such as showing a success message or redirecting the user.
+      } else {
+        console.error('Error while saving data:', response.data.error);
+        // Handle the error, such as showing an error message to the user.
+      }
+    } catch (error) {
+      console.error('Error while saving data:', error);
+      // Handle the error, such as showing an error message to the user.
+    }
   };
+  
+
 
   return (
     <header >
