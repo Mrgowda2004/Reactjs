@@ -13,6 +13,7 @@ const Header = () => {
     skill: '',
     specificInterest: '',
   });
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -26,7 +27,7 @@ const Header = () => {
   
     try {
       // Send a POST request to your Express server
-      const response = await axios.post('/register', formData);
+      const response = await axios.post('http://127.0.0.1:5000/Header', formData);
   
       if (response.status === 200) {
         console.log('Data saved successfully:', response.data.message);
@@ -40,10 +41,7 @@ const Header = () => {
       // Handle the error, such as showing an error message to the user.
     }
   };
-  
-
-
-  return (
+   return (
     <header >
       <AppBar position='relative'>
         <Toolbar>
