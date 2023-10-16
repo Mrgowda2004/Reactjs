@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Paper, TextField } from '@mui/material';
+import { Paper, TextField,AppBar,Toolbar,Typography} from '@mui/material';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+import ReviewsIcon from '@mui/icons-material/Reviews';
+import axios from 'axios'; 
 
 function FeedbackForm() {
   const [formData, setFormData] = useState({
@@ -29,30 +31,41 @@ function FeedbackForm() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // You can handle the form submission logic here, e.g., sending the data to a server.
-    console.log('Form data:', formData);
-    // Clear the form fields after submission
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      course: '',
-      Degree: '',
-      feedback: '',
-      rating: 0,
-    });
+  
+    try {
+      // Send a POST request to your Express server
+      const response = await axios.post('http://127.0.0.1:5000/feedback', formData);
+  
+      if (response.status === 200) {
+        console.log('Data saved successfully:', response.data.message);
+        // You can also perform any other actions, such as showing a success message or redirecting the user.
+      } else {
+        console.error('Error while saving data:', response.data.error);
+        // Handle the error, such as showing an error message to the user.
+      }
+    } catch (error) {
+      console.error('Error while saving data:', error);
+      // Handle the error, such as showing an error message to the user.
+    }
   };
 
   return (
+    <header>
+     <AppBar position='relative'>
+        <Toolbar>
+          <ReviewsIcon/>
+          <Typography variant='h6'sx={{alignContent:"center"}}>Course Feedback:</Typography>
+        </Toolbar>
+      </AppBar>
     <div
       style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        marginTop:"40px"
+        marginTop:'20px',
       }}
     >
       <Paper
@@ -165,6 +178,7 @@ function FeedbackForm() {
         </form>
       </Paper>
     </div>
+    </header>
   );
 }
 
@@ -191,5 +205,4 @@ const submitButtonStyle = {
   marginTop: '10px',
 };
 
-export default FeedbackForm;
-
+export default FeedbackForm
