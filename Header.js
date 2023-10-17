@@ -86,6 +86,7 @@ const Header = () => {
                 <option value='SSLC'>SSLC</option>
                 <option value='PUC'>PUC</option>
                 <option value='Diploma'>Diploma</option>
+                <option value='BE'>BE</option>
                 <option value='BA'>BA</option>
                 <option value='Bcom'>Bcom</option>
                 <option value='BSc'>BSc</option>
