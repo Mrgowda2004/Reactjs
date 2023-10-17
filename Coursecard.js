@@ -1,22 +1,35 @@
-import React, { useState } from 'react';
-import Container from '@mui/material/Container';
+import React, { useState, useEffect } from 'react';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Grid, Card, Paper } from '@mui/material';
-import Data from './Data.json';
+import { Grid, Card, Paper, AppBar, Toolbar } from '@mui/material';
+import Container from '@mui/material/Container';
+import SchoolIcon from '@mui/icons-material/School';
+
+
 
 export default function Coursecard() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortDirection, setSortDirection] = useState('asc'); // 'asc' for ascending, 'desc' for descending
+  const [sortDirection] = useState('asc');
+  const [data, setData] = useState([]);
 
-  const toggleSortDirection = () => {
-    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-  };
+  useEffect(() => {
+    // Fetch data from MongoDB or your JSON file here
+    // For example, if you're using fetch to get data from a JSON file
+    // Replace this with your actual data fetching logic
+    fetch('http://127.0.0.1:5000/courses') // Replace with your API endpoint or JSON file path
+      .then((response) => response.json())
+      .then((jsonData) => {
+        setData(jsonData); // Store the data in the state
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []); // Empty dependency array to fetch data once on component mount
 
-  const sortedData = [...Data].sort((a, b) => {
+  const sortedData = [...data].sort((a, b) => {
     if (sortDirection === 'asc') {
       return a.title.localeCompare(b.title);
     } else {
@@ -29,16 +42,19 @@ export default function Coursecard() {
   );
 
   return (
+    <header>
+     <AppBar position='relative'>
+        <Toolbar>
+          <SchoolIcon/>
+          <Typography variant='h6'sx={{alignContent:"center"}}>Course Suggestions:</Typography>
+        </Toolbar>
+      </AppBar>
+    
     <Paper>
       <Container maxWidth="lg">
-        <Typography
-          variant="h4"
-          align="center"
-          style={{ marginTop: "50px", fontSize: "30px", color: "blue" }}
-        >
-          Course Suggestions:
-        </Typography>
-        <div style={{ textAlign:"center", marginTop: "30px",marginBottom:"30px" }}>
+      <div style={{ textAlign:"center", marginTop: "5px",marginBottom:"20px" }}>
+        
+        
           <input
             type="text"
             placeholder="Search your course"
@@ -47,6 +63,7 @@ export default function Coursecard() {
             style={{padding: "10px",borderRadius:"50px"}}
           />
         </div>
+        
         <Grid
           container
           direction="row"
@@ -97,6 +114,7 @@ export default function Coursecard() {
         </Grid>
       </Container>
     </Paper>
+    </header>
   );
 }
 
