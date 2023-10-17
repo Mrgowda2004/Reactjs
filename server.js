@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -80,7 +81,27 @@ app.post('/feedback', async (req, res) => {
   })
 });
 
+const courseSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+  Mode: String,
+  duration: String,
+  img: String,
+});
 
+const Course = mongoose.model('Course', courseSchema);
+
+// Define a route to fetch course data
+app.get('/courses', async (req, res) => {
+  try {
+    const courses = await Course.find(); // Retrieve all courses from MongoDB
+
+    res.json(courses); // Send the courses as JSON response
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
